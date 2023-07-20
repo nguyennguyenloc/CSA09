@@ -1,0 +1,96 @@
+Câu 1:
+Tiêu chí	Quan hệ	Phi quan hệ
+Ngôn ngữ 	Structured Query Language	Không có ngôn ngữ Query
+Loại hình	Bảng	Tài liệu, cặp khóa-giá trị, cơ sở dữ liệu biểu đồ
+Khả năng mở rộng	Có thể mở rộng theo chiều dọc	Có thể mở rộng theo chiều ngang
+Lưu trữ dữ liệu phân cấp	Không thích hợp cho việc lưu trữ dữ liệu phân cấp.	Phù hợp cho kho lưu trữ dữ liệu phân cấp vì hỗ trợ phương thức cặp khóa-giá trị
+Mục đích sử dụng	Dành cho các ứng dụng xử lý giao dịch trực tuyến trong giao dịch có độ ổn định cao và phân tích trực tuyến	Được thiết kế để phục vụ phân tích dữ liệu có cấu trúc chưa hoàn chỉnh.
+Lựa chọn sử dụng	Dự án đã có yêu cầu dữ liệu rõ ràng xác định quan hệ logic có thể được xác định trước	Dự án yêu cầu dữ liệu không liên quan, khó xác định khi đang phát triển
+Mã nguồn	Một sự kết hợp của mã nguồn mở như Postgres & MySQL, và thương mại như Oracle Database.	Open-source
+ 
+Câu 2: 
+
+- Quan hệ 1-nhiều: một người dùng mxh có thể viết nhiều comment, mỗi comment chỉ có thể viết bởi một người dùng
+- Quan hệ 1-1: một đứa con chỉ có một người mẹ, mỗi người mẹ chỉ có một người bà
+- Quan hệ nhiều-nhiều: mỗi người có thể tạo được nhiều ai, mỗi ai có thể tạo thêm nhiều ai khác.
+
+Câu 3: A
+Câu 4: A
+Câu 5: C
+
+
+
+
+
+
+
+
+
+
+
+
+use buoi3;
+
+create table Customers(
+CustomerID int primary key,
+CustomerName varchar(50),
+Adress varchar(100),
+City varchar(50),
+Country varchar(50)
+);
+create table Products(
+ProductsID int primary key,
+ProductName varchar(50),
+Category varchar(50),
+Unit varchar(50),
+Price decimal
+);
+
+create table Orders(
+OrderID int primary key,
+CustomerID int,
+OrderDate date,
+foreign key (CustomerID) references Customers(CustomerID)
+);
+create table OrderDetails(
+OrderDetailID int primary key,
+OrderID int,
+ProductID int,
+Quantity int,
+foreign key (ProductID) references Products(ProductsID),
+foreign key (OrderID) references Orders(OrderID)
+);
+
+insert into Customers(CustomerID, CustomerName, Adress, City, Country)
+values (1, "Alfreds Futterkiste", "Obere Str. 57", "Berlin" , "Germany"),
+       (2, "Ana Trujillo Emparedados" , "Avda. de la Constitución 2222", "México D.F.", "Mexico"),
+       (3, "Antonio Moreno Taquería", "Mataderos 2312", "México D.F.", "Mexico"),
+       (4, "Around the Horn", "120 Hanover Sq.", "London", "UK"),
+       (5, "Berglunds snabbköp", "Berguvsvägen 8", "Luleå", "Sweden");
+insert into Products(ProductsID, Productname, Category, Unit, Price)
+values (1, "Chais", "Beverages", "10 boxes x 20 bags", 18),
+       (2, "Chang", "Beverages", "24 - 12 oz bottles", 19),
+       (3, "Aniseed Syrup", "Condiments", "12 - 550 ml bottles", 10),
+       (4, "Chef Anton's Cajun Seasoning", "Condiments", "48 - 6 oz jars", 22),
+       (5, "Chef Anton's Gumbo Mix", "Condiments", "36 boxes", 21.35);
+insert into Orders(OrderID, CustomerID, OrderDate)
+values (10248, 2, 7/4/1996),
+       (10249, 3, 7/5/1996),
+       (10250, 3, 7/8/1996),
+       (10251, 5, 7/8/1996),
+       (10252, 1, 7/9/1996);
+insert into OrderDetails(OrderDetailID, OrderID, ProductID, Quantity)
+values (1, 10248, 1, 12),
+       (2, 10248, 3, 10),
+       (3, 10248, 2, 5),
+       (4, 10249, 4, 9),
+       (5, 10249, 1, 40);
+
+
+
+
+
+
+
+  
+
