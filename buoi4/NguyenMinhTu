@@ -1,0 +1,50 @@
+-- BTTH
+SELECT *
+FROM Customers
+WHERE country LIKE '%Mexico%';
+
+SELECT distinct country
+FROM Customers;
+
+SELECT *
+FROM Customers
+WHERE country ='Mexico' or country = 'Canada' or country = 'USA';
+
+SELECT CustomerName
+FROM Customers
+WHERE country = 'USA' and City not LIKE '%San Francisco%';
+
+SELECT Name, Unit
+FROM Products
+WHERE Unit LIKE '%bottles%';
+
+ALTER table Products CHANGE ProductName Name char(50);
+
+SELECT *
+FROM Products
+ORDER BY Price;
+
+SELECT *
+FROM Products 
+WHERE Category = 'Beverages'
+ORDER BY Price DESC;
+
+SELECT *
+FROM Products
+WHERE Unit LIKE '%boxes%' and price between 10 and 25;
+
+SELECT *
+FROM Orders
+WHERE OrderDate LIKE '%1996-08%';
+
+SELECT ProductID, Quantity
+FROM OrderDetails
+WHERE ProductID > 10 and Quantity > 10;
+
+-- BTTN
+Câu 1:
+- Câu lệnh SELECT trong SQL có thể them những điều kiện đi kèm với việc đọc dữ liệu.
+Câu 2: B
+Câu 3: A
+Câu 4: C
+Câu 5: A
