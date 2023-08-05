@@ -1,0 +1,76 @@
+use northwindfulldata;
+
+-- 1
+select min(OrderDate) as EarliestDay
+from Orders;
+-- 2
+select count(OrderID) as TotalOrder
+from Orders;
+
+select *
+from OrderDetails;
+
+-- 3
+select OrderID, sum(Quantity) as Total
+from OrderDetails
+group by OrderID;
+
+-- 4
+select sum(quantity)/count(quantity) as Average
+from OrderDetails;
+
+-- 5
+select OrderID, count(Quantity) as DistinctItems
+from OrderDetails
+group by OrderID;
+
+-- 6
+select Category, avg(Price) as Price
+from Products
+group by Category
+having 20 < avg(Price) and avg(Price) < 30;
+
+select *
+from OrderDetails;
+
+-- 7
+select Country, count(CustomerID) as CustomerCount
+from Customers
+group by Country
+having count(CustomerID) > 10;
+
+-- 8
+select CustomerID, count(OrderDetailID)/518 as Ordered
+from OrderDetails, Orders
+group by CustomerID
+order by Ordered desc;
+
+-- 9
+select ProductID, count(OrderDetailID) as Ordered
+from OrderDetails
+group by ProductID
+having count(OrderDetailID) > 10
+order by Ordered asc;
+
+
+select *
+from OrderDetails;
+
+-- 10
+select ProductID, sum(Quantity) as TotalItems
+from OrderDetails
+where ProductID = 1;
+
+
+
+Câu 1:
+- Having chỉ được dùng với nhóm (group by)
+- Where chỉ được dùng với những hàng riêng biệt
+- Điều kiện ở WHERE áp dụng cho dữ liệu có sẵn trong bảng.
+- Điều kiện ở HAVING áp dụng cho kết quả của các hàm
+tổng hợp trong SELECT.
+Câu 2:
+- Câu lệnh GROUP BY thường được dùng với các hàm tổng hợp (COUNT(), MAX(), MIN(), SUM(), AVG()) để nhóm các tập kết quả vào một hoặc nhiều cột.
+Câu 3: D
+Câu 4: A
+Câu 5: A
