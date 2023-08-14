@@ -1,0 +1,64 @@
+Câu 1:
+- UNION và UNION ALL đều dùng để hợp hai tập bản ghi cùng cấu trúc.
+- Đều đứng sau lệnh select và from.
+Câu 2:
+- Full (outer) join: trả về tất cả giá trị từ cả hai bảng.
+- Left (outer) join: luôn trả tất cả giá trị từ bảng bên trái
+- Right (outer) join: luôn trả tất cả giá trị từ bảng bên phải
+Câu 3: C
+Câu 4: B
+Câu 5: D
+
+use northwind1;
+
+-- 1
+select Orders.OrderID, Orders.CustomerID, Customers.CustomerName, Customers.Country
+from Orders inner join Customers
+on Orders.CustomerID = Customers.CustomerID;
+-- 2
+select Customers.country, sum(OrderDetails.quantity) as Ordered
+from Customers inner join Orders
+on Customers.CustomerID = Orders.CustomerID
+inner join OrderDetails on Orders.OrderID = OrderDetails.OrderID
+group by Customers.country
+order by sum(OrderDetails.quantity) desc;
+-- 3
+select Products.ProductID, Products.ProductName, OrderDetails.Quantity, Products.Price
+from Products inner join OrderDetails
+on Products.ProductID = OrderDetails.ProductID
+where OrderDetails.OrderID = 10248;
+-- 4
+select OrderDetails.OrderID, sum(OrderDetails.Quantity) as Total
+from Products inner join OrderDetails
+on Products.ProductID = OrderDetails.ProductID
+where OrderDetails.OrderID = 10248;
+-- 5
+select Orders.OrderID, sum(OrderDetails.Quantity)
+from Orders inner join OrderDetails
+on Orders.OrderID = OrderDetails.OrderID
+where Orders.OrderDate = "1996-08-01"
+group by Orders.OrderID;
+-- 6
+select * from Orders
+where OrderDate < "1996-07-08";
+-- 7
+select ProductID, ProductName, Price
+from Products
+where Price > 
+(select AVG(Price) from Products)
+order by Price asc;
+-- 8
+select * from Products;
+select Orders.OrderID, Orders.CustomerID, Orders.OrderDate
+from Orders inner join OrderDetails
+on Orders.OrderID = OrderDetails.OrderID
+inner join Products on Products.ProductID = OrderDetails.ProductID
+where Products.Category = "Dairy Products";
+-- 9
+select Orders.CustomerID, Customers.CustomerName
+from Orders inner join OrderDetails
+on Orders.OrderID = OrderDetails.OrderID
+inner join Products on Products.ProductID = OrderDetails.ProductID
+inner join Customers on Customers.CustomerID = Orders.CustomerID
+where Products.Category = "Dairy Products"
+order by Orders.CustomerID asc;
